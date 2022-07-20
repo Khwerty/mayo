@@ -1,0 +1,80 @@
+@import "./../_config.sass"
+
+*
+  color: white
+
+.query_open_item
+  $padding-h: .5rem
+  display: flex
+  flex-direction: column
+
+  width: 100%
+  min-height: 100vh
+
+  .block
+    display: flex
+    justify-content: space-between
+    padding: .5rem $padding-h
+
+  .query_options
+    display: flex
+    justify-content: end
+    padding: 0 $padding-h
+    padding-top: .5rem
+
+    .del
+      background-color: $color-softbutton
+      
+  .internal_message
+    display: grid
+    grid-gap: 1rem
+    background-color: $color-softbutton
+    padding: 1rem
+
+    .mm
+      font-size: 1.1rem
+      display: flex
+      justify-content: space-between
+         
+  .created_at
+    font-style: italic
+    color: $color-ter
+
+  
+  .secondata
+    div
+      color: $color-sec
+
+  .comm
+    padding: 1rem $padding-h
+    word-break: break-all
+
+  .productslist
+    display: flex
+    flex-direction: column
+    flex-grow: 2
+    height: auto
+    
+    background-color: $color-back
+    padding: 0 $padding-h
+
+    .product
+      padding: 1rem 0
+      border-top: 2px solid $color-ter
+      display: grid
+      grid-gap: .3rem
+      grid-template: 1fr 1fr / 2fr 1fr 1fr
+      
+      .units,.bulks,.quantity,.price,.weight,.bulk
+        text-align: center        
+
+      .detail,.typo,.price,.weight,.quantity,.bulk
+        color: $color-ter
+      
+    .totals
+      border-top: 2px solid $color-ter
+      padding: .4rem 0
+      margin-top: auto
+
+    .product:first-child
+      border: none

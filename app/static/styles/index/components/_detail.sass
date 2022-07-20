@@ -1,0 +1,134 @@
+#lastdetail
+  box-sizing: border-box
+  z-index: 3
+  display: none
+  flex-direction: column
+  position: absolute
+  background-color: $color-detail
+  width: 100%
+  height: 100%
+  color: white
+  font-family: $font-f
+
+  padding: 1rem
+
+  border: solid 2px black
+
+  .options
+    display: flex
+    flex-direction: row
+    margin-bottom: 1rem
+    justify-content: end
+
+    a 
+      display: flex
+      color: white
+      border-radius: 0.3rem
+      background-color: #880202
+
+    a:visited 
+      color:white
+    a:hover 
+      color:white
+    a:active 
+      color:white
+    
+    span
+      color: white
+      font-size: 1.8rem
+
+  .cldata
+    display: flex
+    justify-content: space-between
+    font-size: 1.2rem
+    margin: 0.5rem 0
+
+  .verempty:empty
+    display: none
+    .clientoptional
+      display: none
+
+  .lastmessage
+    padding: 1rem 0
+    border-bottom: 0.2rem solid $color-back
+
+  .createdat
+    font-size: 1rem
+    color:$color-ter
+    font-style: italic
+    margin-top: 1rem 
+
+  .clientoptional
+    font-size: 1rem
+    color:$color-sec
+
+  .desc
+    display: flex
+    margin: 1rem 0
+    font-size: .9rem
+    white-space: normal
+
+  .product_item
+    display: grid
+    grid-template: 1fr 1fr 1fr / 3fr 1fr 1fr
+    row-gap: .2rem
+    column-gap: .2rem
+    padding: 0.3rem 0
+    border-top: 0.2rem solid $color-ter
+    margin: .5rem 0
+
+    .desc
+      display: flex
+      word-wrap: break-word
+
+    .detail
+      color: #b6b6b6
+      text-overflow: ellipsis
+      overflow: hidden
+      white-space: nowrap
+    
+    .weight
+      color: #b3b3b3
+
+    .price
+
+    .units
+      text-align: center
+
+    .bulks
+      text-align: center
+
+    .typo
+      text-overflow: ellipsis
+      overflow: hidden
+      white-space: nowrap
+      color: #b3b3b3
+  
+  #total
+    display: flex
+    justify-content: space-between
+
+    border-top: .2rem solid $color-ter
+    margin-top: auto
+    padding-top: .2rem
+
+@media screen and (max-width: 540px)
+  .product_item
+    .typo
+      order: 3
+    .trademark
+      order: 0
+    .detail
+      order: 6
+    .price
+      order: 1
+    .weight
+      order: 4
+    .dequan
+      order: 7
+      color: #b6b6b6
+    .debulks
+      order: 2
+    .deunits
+      order: 5
+

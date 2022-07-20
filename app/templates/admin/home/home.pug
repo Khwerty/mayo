@@ -1,0 +1,83 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="{{url_for('static',filename='styles/home/home.css')}}")
+    link(rel="stylesheet", href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200")
+    title {{title}}
+  body
+    main
+      include ./../../header.pug
+      .query_list
+        |{% for query in querys %}
+        .query(onclick="showDetail(this)" name="{{query.id}}")
+          span(id="name")|{{query.name}}
+          span|{{query.weight}}
+          span(id="price")|${{query.total}}
+        |{% endfor %}
+
+    |{% for query in querys %}
+    .query_open_item(id="{{query.id}}")
+      .query_options.block
+        button.del.icon(onclick="showAdv({{query.id}})")
+          span(class="material-symbols-outlined") clear
+        button.close.icon(onclick="hideDetail({{query.id}})")
+          span(class="material-symbols-outlined") undo
+        
+      .created_at.block|{{query.created_at}}
+
+      .firstdata.block
+        .name|{{query.name}}
+        .number|{{query.contact}}
+
+      .secondata.block
+        .address|{{query.address}}
+        .mail|{{query.mail}}
+
+      .comm|{{query.desc}}
+
+      .productslist
+        |{% for list in lists %}
+        |{% if query.id == list.client_id %}
+        .product
+          .typo|{{list.typo}}
+          .price|$ {{list.price}}
+          .bulks|{{list.bulks}} b
+          .trademark|{{list.trademark}}
+          .weight|{{list.weight}}
+          .units|{{list.units}} u
+          .detail|{{list.detail}}
+          .bulk|{{list.bulk}} u
+          .quantity|= {{list.quantity}} u        
+        |{% endif %}
+        |{% endfor %}
+        .totals.block
+          .tprice|$ {{query.total}}
+          .tweight|{{query.weight}}
+
+    .areusure(id="adv_{{query.id}}")
+      div Estas Seguro ?
+      .adv-options
+        button.nain(type="button" onclick="hideAdv( {{query.id}} )") No
+        
+        a(href="{{url_for('.delete_query',client_id = query.id )}}")
+          button.yes(type="button" ) Si
+    |{% endfor %}
+    
+    .message#message_id
+      form(method="POST")
+        input(type="hidden" name="csrf_token" value="{{csrf_token()}}") 
+        .mmhead
+          span.mmtitle Mensaje final
+          button.mmclose.icon(onclick="hideMm()" type="button")
+            span(class="material-symbols-outlined") undo
+
+        |{{form.message}}
+        |{{form.disc}}
+        button.icon(type="submit") Guardar
+              
+  script(src="./../../static/js/home.js") 
+
+

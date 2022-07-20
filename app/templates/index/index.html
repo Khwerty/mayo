@@ -1,0 +1,174 @@
+<!DOCTYPE html  >
+<html lang="es">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="{{url_for('static',filename='styles/index/style.css')}}"/>
+    <link rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+    <title>{{title}}</title>
+  </head>
+  <body>
+    {% if current_user.is_authenticated %}
+    {% else %}    
+    {% with messages = get_flashed_messages() %}
+     {% if messages %}
+       <ul class=flashes id= flashes>
+       {% for message in messages %}
+         <li id=noproduct><span>{{ message }}</span>
+    <button class="icon" onclick="hideFlash()"><span class="material-symbols-outlined">close</span></button>     </li>
+       {% endfor %}
+       </ul>
+     {% endif %}
+    {% endwith %}
+    {% endif%}
+    <main>
+      <div class="main-head">
+        <div class="title">{{title}}</div>
+        <div class="but">{% if current_page == "home" %}
+          <div class="menuicon"><span class="material-symbols-outlined dropbutton" onclick="toggle()">menu</span>
+            <div class="drop" id="drop"><a href="{{url_for('.index')}}">Productos</a><span onclick="showMm(this)">Editar Mensaje</span><a href="{{url_for('.logout')}}">Cerrar sesion</a></div>
+          </div>{% else %}
+          {% if current_user.is_authenticated %}<span class="link" onclick="showAdder()">Añadir Producto</span><a class="link" href="{{url_for('.home')}}">Pedidos</a>{% else %}<a class="log" href="{{url_for('.login')}}"> <span class="material-symbols-rounded">logout</span></a>
+          <button class="ask" onclick="queryOrder('resume')"><span class="material-symbols-rounded">shopping_cart</span><span>Pedido</span></button>{% endif %}
+          {% endif %}
+          <div class="close"></div>
+        </div>
+      </div>
+      <div class="products">
+        {% for product in products %}
+        {% if not product.hidden or current_user.is_authenticated %}
+        <div class="post {{ 'hidden' if product.hidden }}">
+          <div class="pic"><img src="{{url_for('static',filename='images/'+product.image)}}" alt=""/></div>
+          <div class="display">
+            <div class="info">
+              <input class="idinfo" type="hidden" name="query" value="{{product.id}}"/>
+              <div class="tag it">{{product.typo}}</div>
+              <div class="marca it">{{product.trademark}}</div>
+              <div class="detalle it">{{product.detail}}</div>
+              <div class="peso it">{{product.weight}} {{product.weightype}}</div>
+              <div class="pr it"></div>
+              <div class="unit_price" id="unit_price_{{product.id}}"><span class="price">$ {{product.price}} </span><span class="bulk">x 1u</span></div>
+              <div class="bulk_price show" id="bulk_price_{{product.id}}"><span class="price">$ {{product.bulkprice}} </span><span class="bulk">x {{product.bulk}}u</span></div>
+              <input class="bu" type="hidden" value="{{product.bulk}}"/>
+            </div>{% if current_user.is_authenticated %}
+            <div class="options">
+              <button class="del icon" type="button" onclick="showAdv( {{product.id}} )"><span class="material-symbols-outlined">clear</span></button><a class="edit icon" href="{{url_for('.edit_product',product_id = product.id)}}"><span class="material-symbols-sharp">edit</span></a>
+            </div>{% else %}
+            <div class="quantity">
+              <div class="inputer"> 
+                <button class="dn" type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><span class="material-symbols-outlined">remove</span></button>
+                <input class="listInput" type="number" placeholder="0"/>
+                <button class="up" type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><span class="material-symbols-outlined">add</span></button>
+              </div>
+              <div class="bulto"> 
+                <label class="switch">
+                  <input class="listSwitch" type="checkbox" id="d" onclick="changePrice({{product.id}})" autocomplete="off"/><span class="slider"></span>
+                  <div class="text">
+                    <div class="b">Por Unidad</div>
+                    <div class="u">Por Bulto</div>
+                  </div>
+                </label>
+              </div>
+            </div>{% endif %}
+          </div>
+        </div>{% endif %}
+        {% endfor %}
+      </div>
+    </main>{% if current_user.is_authenticated %}
+    <div id="adder_cont">
+      <form class="adder" method="post" enctype="multipart/form-data"><a class="closer icon" href="{{url_for('.index')}}"><span class="material-symbols-outlined">close</span></a>
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}"/>
+        <div class="titlee">Añadir Producto</div>{{form.typo(placeholder="Tipo De Producto",id="typo")}}
+        {{form.trademark(placeholder="Marca")}}
+        {{form.detail(placeholder="Detalle")}}
+        <div class="inputweight">{{form.weight(id="weight",placeholder="Peso")}}{{form.weightype(id="wt")}}</div>{{form.price(placeholder="Precio unitario")}}
+        {{form.bulkprice(placeholder="Precio por bulto")}}
+        {{form.bulk(placeholder="Unidades por bulto")}}
+        <label class="inputfile">
+           {{form.image(id="img")}}
+          Seleccionar Imagen
+        </label>
+        <div id="hidden">Oculto{{form.hidden(id="cb")}}</div>
+        <button class="addbutton" type="submit">Añadir</button>
+      </form>
+    </div>{% for product in products %}
+    <div class="areusure" id="adv_{{product.id}}">
+      <div>Estas Seguro ?</div>
+      <div class="options">
+        <button class="nain" type="button" onclick="hideAdv( {{product.id}} )">No</button><a href="{{url_for('.delete_product',product_id = product.id )}}">
+          <button class="yes" type="button">Si</button></a>
+      </div>
+    </div>{% endfor %}
+    {% else %}
+    <div class="resume" id="resume">
+      <form method="post">
+        <div class="data">
+          <div class="title">Datos de Contacto</div>
+          <div class="datacontainer">
+            <input type="hidden" name="csrf_token" value="{{csrf_token()}}"/>
+            <div class="dataslot">
+              <div class="required">Nombre</div>{{fq.name(id="clname")}}
+            </div>
+            <div class="dataslot">
+              <div class="required">Numero</div>{{fq.contact(id="clcontact")}}
+            </div>
+            <div class="dataslot"> 
+              <div>Direccion</div>{{fq.address(id="claddress")}}
+            </div>
+            <div class="dataslot"> 
+              <div>Email</div>{{fq.mail(id="clmail")}}
+            </div>
+          </div>
+          <div class="desc_container">
+            <div>Comentario</div>{{fq.desc(id="desc")}}
+          </div>
+          <button type="submit" rows="2" onclick="">Enviar Consulta</button>
+        </div>
+        <div class="list">
+          <div class="head">
+            <div class="title">Resumen de Compra</div>
+            <button class="icon" onclick="hideResumen('resume')" name="closebutton" type="button"><span class="material-symbols-outlined">close</span></button>
+          </div>
+          <div class="tcont">
+            <div class="container">
+              {% for product in products %}
+              {% if not product.hidden or current_user.is_authenticated %}
+              <div class="item">
+                <input class="id" type="hidden" value="{{product.id}}"/><span class="typo" title="{{product.typo}}">{{product.typo}}</span><span class="trademark" title="{{product.trademark}}">{{product.trademark}}</span><span class="detail" title="{{product.detail}}">{{product.detail}}</span>
+                <div class="weightdiv"><span class="weight">{{product.weight}}</span><span class="weightype">{{product.weightype}}</span></div>
+                <div class="pricediv"><span>$</span>
+                  <input name="unit_price" value="{{product.price}}" type="hidden"/>
+                  <input name="bulk_price" value="{{product.bulkprice}}" type="hidden"/><span class="resprice"></span><span class="x"> X </span><span class="resQua" type="number"></span>
+                </div>
+                <div class="totaldiv"><span>$</span><span class="total"></span></div>
+                <div class="fil0"></div>
+                <div class="fil1"></div>
+                <input class="totalw" type="hidden" value=""/>
+                <button class="del icon" onclick="hideFather( this )" type="button"><span class="material-symbols-outlined">close</span></button>
+                <input type="hidden" name="data" value="{{product.typo}}"/>
+                <input type="hidden" name="data" value="{{product.trademark}}"/>
+                <input type="hidden" name="data" value="{{product.detail}}"/>
+                <input class="form_final_price" type="hidden" name="data"/>
+                <input type="hidden" name="data" value="{{product.weight}} {{product.weightype}}"/>
+                <input type="hidden" name="data" value="{{product.bulk}}"/>
+                <input class="fQuan" type="hidden" name="data" value=""/>
+              </div>{% endif %}
+              {% endfor %}
+              <input id="ftt" type="hidden" name="data" value=""/>
+              <input id="ftw" type="hidden" name="data" value=""/>
+            </div>
+            <div class="suma"><span class="envio">Total</span>
+              <div id="twdiv"><span id="totalweight"> </span><span id="totalwt"> </span></div>
+              <div class="ttdiv"><span>$</span><span id="totaltotal"></span></div>
+            </div>
+          </div>
+          <div class="info_discount"><span>{{mm.disc}}</span></div>
+        </div>
+      </form>
+    </div>{% endif%}
+  </body>
+  <script src="{{url_for('static',filename='js/script.js')}}"></script>
+</html>

@@ -1,0 +1,203 @@
+doctype html  
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="{{url_for('static',filename='styles/index/style.css')}}")
+    link(rel="stylesheet", href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200")
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200")
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200") 
+    title {{title}}
+  body
+    |{% if current_user.is_authenticated %}
+    |{% else %}    
+    |{% with messages = get_flashed_messages() %}
+    |  {% if messages %}
+    |    <ul class=flashes id= flashes>
+    |    {% for message in messages %}
+    |      <li id=noproduct>
+    span|{{ message }}
+    button.icon(onclick="hideFlash()")
+      span(class="material-symbols-outlined") close
+    |      </li>
+    |    {% endfor %}
+    |    </ul>
+    |  {% endif %}
+    |{% endwith %}
+    |{% endif%}
+
+    main
+      include ./../header.pug
+      .products
+        |{% for product in products %}
+        |{% if not product.hidden or current_user.is_authenticated %}
+        .post(class = "{{ 'hidden' if product.hidden }}")
+          .pic
+            img(src="{{url_for('static',filename='images/'+product.image)}}", alt="")
+          .display
+            .info
+              input.idinfo(type="hidden" name="query" value="{{product.id}}")
+              div.tag.it|{{product.typo}}
+              div.marca.it|{{product.trademark}}
+              div.detalle.it|{{product.detail}}
+              div.peso.it|{{product.weight}} {{product.weightype}}
+              .pr.it
+
+              .unit_price(id="unit_price_{{product.id}}")
+                span.price|$ {{product.price}} 
+                span.bulk|x 1u
+
+              .bulk_price.show(id="bulk_price_{{product.id}}")
+                span.price|$ {{product.bulkprice}} 
+                span.bulk|x {{product.bulk}}u
+
+              input(type="hidden" class="bu" value="{{product.bulk}}")
+            |{% if current_user.is_authenticated %}
+            .options
+              button.del.icon(type="button" onclick = "showAdv( {{product.id}} )" )
+                span(class="material-symbols-outlined") clear
+
+              a.edit.icon(href="{{url_for('.edit_product',product_id = product.id)}}")
+                span(class="material-symbols-sharp") edit
+            |{% else %}
+            .quantity
+              .inputer 
+                button(type="button" class="dn" onclick="this.parentNode.querySelector('input[type=number]').stepDown()")
+                  span(class="material-symbols-outlined") remove
+
+                input(type="number" placeholder="0" class="listInput")
+
+                button(type="button" class="up" onclick="this.parentNode.querySelector('input[type=number]').stepUp()")
+                  span(class="material-symbols-outlined") add
+              .bulto 
+                label.switch
+                  input(type="checkbox" class="listSwitch" id="d" onclick="changePrice({{product.id}})" autocomplete="off")
+                  span.slider
+                  .text
+                    div.b Por Unidad
+                    div.u Por Bulto
+            |{% endif %}
+        |{% endif %}
+        |{% endfor %}
+    |{% if current_user.is_authenticated %}
+
+    #adder_cont
+      form.adder(method="post" enctype="multipart/form-data")
+        a.closer.icon(href="{{url_for('.index')}}")
+          span(class="material-symbols-outlined") close
+        
+        input(type="hidden" name="csrf_token" value="{{csrf_token()}}")
+        .titlee Añadir Producto
+        |{{form.typo(placeholder="Tipo De Producto",id="typo")}}
+        |{{form.trademark(placeholder="Marca")}}
+        |{{form.detail(placeholder="Detalle")}}
+        .inputweight
+          |{{form.weight(id="weight",placeholder="Peso")}}{{form.weightype(id="wt")}}
+        |{{form.price(placeholder="Precio unitario")}}
+        |{{form.bulkprice(placeholder="Precio por bulto")}}
+        |{{form.bulk(placeholder="Unidades por bulto")}}
+        label(class="inputfile") 
+          |{{form.image(id="img")}}
+          |Seleccionar Imagen
+        #hidden|Oculto{{form.hidden(id="cb")}}
+        button.addbutton(type="submit") Añadir
+
+    |{% for product in products %}
+    .areusure(id="adv_{{product.id}}")
+      div Estas Seguro ?
+      .options
+        button.nain(type="button" onclick="hideAdv( {{product.id}} )") No
+        
+        a(href="{{url_for('.delete_product',product_id = product.id )}}")
+          button.yes(type="button" ) Si
+    |{% endfor %}
+
+    |{% else %}
+    .resume#resume
+      form(method="post")
+        .data
+          .title Datos de Contacto
+          .datacontainer
+            input(type="hidden" name="csrf_token" value="{{csrf_token()}}") 
+            .dataslot
+              .required Nombre
+              |{{fq.name(id="clname")}}
+            .dataslot
+              .required Numero
+              |{{fq.contact(id="clcontact")}}
+            .dataslot 
+              div Direccion
+              |{{fq.address(id="claddress")}}
+            .dataslot 
+              div Email
+              |{{fq.mail(id="clmail")}}
+          .desc_container
+            div Comentario
+            |{{fq.desc(id="desc")}}
+          button(type="submit" rows="2" onclick="") Enviar Consulta
+
+        .list
+          .head
+            .title Resumen de Compra
+            button.icon(onclick="hideResumen('resume')" name="closebutton" type="button")
+              span(class="material-symbols-outlined") close
+
+          .tcont
+            .container
+              |{% for product in products %}
+              |{% if not product.hidden or current_user.is_authenticated %}
+              .item
+                input.id(type="hidden" value="{{product.id}}")
+                span.typo(title="{{product.typo}}")|{{product.typo}}
+                span.trademark(title="{{product.trademark}}")|{{product.trademark}}
+                span.detail(title="{{product.detail}}")|{{product.detail}}
+
+                .weightdiv
+                  span.weight|{{product.weight}}
+                  span.weightype|{{product.weightype}}
+                  
+                .pricediv
+                  span $
+                  input(name="unit_price" value="{{product.price}}" type="hidden" )
+                  input(name="bulk_price" value="{{product.bulkprice}}" type="hidden" )
+
+                  span.resprice
+                  span.x  X 
+                  span(type="number" class="resQua")
+
+                .totaldiv
+                  span $
+                  span.total
+
+                .fil0
+                .fil1
+
+                input.totalw(type="hidden" value="")
+                button.del.icon(onclick="hideFather( this )" type="button")
+                  span(class="material-symbols-outlined") close
+
+                input(type="hidden" name="data" value="{{product.typo}}")
+                input(type="hidden" name="data" value="{{product.trademark}}")
+                input(type="hidden" name="data" value="{{product.detail}}")
+                input.form_final_price(type="hidden" name="data")
+                input(type="hidden" name="data" value="{{product.weight}} {{product.weightype}}")
+                input(type="hidden" name="data" value="{{product.bulk}}")
+                input.fQuan(type="hidden" name="data" value="")
+              |{% endif %}
+              |{% endfor %}
+              input#ftt(type="hidden" name="data" value="")
+              input#ftw(type="hidden" name="data" value="")
+            .suma
+              span.envio Total
+              #twdiv
+                span#totalweight 
+                span#totalwt 
+              .ttdiv
+                span $
+                span#totaltotal
+          .info_discount
+            span|{{mm.disc}}
+    |{% endif%}
+
+  script(src="{{url_for('static',filename='js/script.js')}}")

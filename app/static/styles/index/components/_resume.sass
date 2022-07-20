@@ -1,0 +1,250 @@
+//#THIS IS AN UNOFFICIAL VERSION
+main
+  z-index: 0
+  position: absolute
+
+.resume
+  display: none
+  $margin: 1.5rem
+  z-index: 2
+  position: absolute
+
+  padding: 1.5rem
+  margin: $margin
+  width: calc(100% - $margin * 2)
+  
+  background-color: $color-detail
+
+  font-family: $font-f
+  font-size: 1.3rem
+
+  border-radius: 1.5rem
+  color: white
+
+  box-shadow: rgba(0, 0, 0, 0.637) 0px 10px 25px
+
+  form
+    display: flex
+    width: 100%
+
+    .title
+      margin-bottom: 1rem
+
+    .data
+      padding-right: 2rem 
+
+      .dataslot
+        input
+          background-color: $color-back
+          border-radius: .6rem
+          font-size: 1.1rem
+          padding: .2rem .5rem
+          color: white
+          margin-top: .2rem
+          margin-bottom: .6rem
+          
+      .desc_container
+        textarea
+          background-color: $color-back
+          border-radius: .6rem
+          border: none
+          width: 100%
+          height: auto
+          resize: none
+          color: white
+          padding: .2rem .5rem
+          margin-top: .2rem
+          font-family: $font-f
+          outline: none
+
+      button
+        border-radius: .8rem
+        font-size: 1.1rem
+        padding: .6rem 2rem
+        width: 100%
+        color: white
+        font-family: $font-f
+        word-wrap: nowrap
+        background-color: $color-softbutton
+        margin-top: 1rem
+    
+    .list
+      display: flex
+      flex-direction: column
+      width: 100%
+
+      .head
+        display: flex
+        justify-content: space-between
+
+        button
+          height: min-content
+          background-color: $color-back
+          color: $color-ter
+
+      .tcont
+        display: flex
+        flex-direction: column
+        flex-grow: 2
+        background-color: $color-back
+        padding: 0 .5rem
+
+        .container
+          .item
+            border-top: solid 2px #414141
+            display: grid
+            grid-template-columns: 1fr 1fr 2fr 1fr 1fr 1fr 0fr 0fr 1fr
+            max-height: min-content
+            padding: .3rem 0
+
+            span
+              align-self: center
+              font-size: 1.2rem
+
+            div
+              align-self: center
+              font-size: 0
+
+            .del
+              justify-self: center
+              background-color: $color-back
+              display: flex
+              padding: 0 
+              margin: 0
+              width: min-content
+              height: min-content
+
+              span
+                color: $color-ter
+                font-size: 1.4rem
+                text-align: center
+            
+          .weightdiv,.pricediv,.totaldiv
+            text-align: center
+
+        .suma
+          border-top: 0.2rem #414141 solid
+          margin-top: auto
+          padding: .4rem 0
+          display: grid
+          //grid-template-columns: 1fr 1fr 2fr 1fr 1fr 1fr 0fr 0fr 1fr
+          grid-template-columns: 5fr 1fr 1fr 1fr
+          #twdiv,.ttdiv
+            text-align: center
+      .info_discount
+        padding: 1rem .3rem
+        padding-bottom: 0
+        span
+          font-size: 1rem
+          opacity: .5
+
+@media (max-width: 670px)
+  .resume
+    width: 100%
+
+    margin: 0
+    padding: .3rem 0
+
+    border-radius: 0
+
+    form
+      flex-direction: column
+      flex-flow: column-reverse
+
+      .list
+        margin-bottom: 2rem
+        
+
+        .head
+          margin: 1rem 0
+          padding: 0 .3rem
+      
+        .tcont
+          .container
+            .item.item
+              position: relative
+              grid-template: 1fr 1fr 1fr / 2fr 1fr 1.2fr
+              grid-row-gap: .5rem
+              padding: 1rem 0
+
+              span
+                font-size: 1rem
+
+              .typo
+                order: 0
+              .weightdiv
+                order: 4
+              .del
+                order: 2
+                justify-self: end
+
+                span
+                  position: absolute
+                  right: -5px
+                  top: 12px
+                  
+                  font-size: 1.5rem
+
+
+              .trademark
+                order: 3
+              .pricediv
+                order: 5
+              .totaldiv
+                order: 8
+              .detail
+                white-space: nowrap
+                order: 6
+              .fil0
+                order: 7
+              .fil1
+                order: 1
+
+              .close,.totaldiv,.pricediv
+                text-align: right
+          
+          .suma.suma
+            grid-template-columns: 2fr 1fr 1.2fr
+            font-size: 1rem
+            .ttdiv
+              text-align: right
+      .data
+        display: flex
+        flex-direction: column
+        padding: 0 .5rem
+        
+        .title
+          margin-bottom: 1rem
+        
+        .datacontainer
+          display: grid
+          grid-template: 1fr 1fr / 1fr 1fr
+          grid-gap: .6rem
+
+          .dataslot
+            div
+              margin-bottom: .2rem
+              font-size: 1.1rem
+
+            input
+              width: 100%
+              margin: 0
+              margin-bottom: .6rem 
+          
+        .desc_container
+          div
+            font-size: 1.1rem
+
+        button
+          margin: 1rem 0
+          white-space: nowrap
+          width: min-content
+          align-self: center
+        
+        
+
+
+
+
+        
+

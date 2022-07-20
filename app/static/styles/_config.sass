@@ -1,0 +1,182 @@
+*
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+  font-family: Helvetica
+
+$font-f: Helvetica
+
+$color-pri: #fff
+$color-sec: #c9c9c9
+$color-ter: #939393
+$color-four: #808080
+$color-back: #202020
+
+$color-detail: #2e2e2e
+$color-inputb: #000000
+$color-button: #e01818
+$color-softbutton: #742424
+
+body
+  background-color: $color-detail
+
+input
+  border: none
+  outline: none
+
+a
+  color: blue
+  text-decoration: none
+
+button
+  border: none
+
+button:hover
+  cursor: pointer
+
+main
+  max-width: 100vw
+
+.icon
+  padding: 2px
+  display: flex
+  border-radius: .2rem
+  background-color: green
+  color: white
+
+.flashes
+  width: 100%
+  z-index: 10
+  
+  font-family: $font-f
+  list-style: none
+
+  li
+    align-items: center
+
+    display: none
+    justify-content: space-between
+    padding: .5rem
+    color: white
+    background-color: $color-softbutton
+
+    button
+
+      span
+        font-size: 1.4rem
+
+      background-color: #ffffff00
+
+@keyframes cssAnimation
+  0%
+    opacity: 1
+  80%
+    opacity: 1
+  100%
+    opacity: 0
+
+@-webkit-keyframes cssAnimation
+  0%   
+  opacity: 1
+  50%  
+  opacity: 1
+  100% 
+  opacity: 0
+
+.main-head
+  display: flex
+  align-items: center
+  height: 4rem
+  padding: 1rem 1rem
+  justify-content: space-between
+  color: $color-pri
+  font-family: $font-f
+
+  .title
+    font-size: 1.1rem
+
+  .but
+    display: flex
+    align-items: center
+    width: auto
+    height: 100%
+
+    .link
+      font-size: 1rem
+      color: $color-sec
+      margin-left: .8rem
+      text-align: center
+
+    .link:hover
+      cursor: pointer
+
+    a
+      font-size: inherit
+      position: relative
+      white-space: nowrap
+      margin-left: 1rem
+
+    .menuicon
+      display: flex
+      align-items: center
+      height: 100%
+      color: $color-ter
+      position: relative
+
+    .drop
+      display: none
+      position: absolute
+      z-index: 1
+      background-color: $color-back
+      top: 3rem
+      right: -1rem
+
+    .show
+      display: grid
+      align-items: end
+      padding: .5rem 0
+
+      a,span
+        margin: 0
+        color: white
+        cursor: pointer
+        padding: .5rem 1rem
+        white-space: nowrap
+        
+
+      span:hover ,a:hover
+        background-color: #2e2e2e
+
+    .log
+      color: #464646
+      margin-left: 1rem
+      margin-right: 1rem
+
+      span
+        font-size: 2rem
+
+      span:hover
+        cursor: default
+
+    .close
+      color: #afafaf
+
+    .ask
+      display: flex
+      align-items: center
+      justify-content: space-between
+      white-space: nowrap
+      color: $color-sec
+      font-size: 1rem
+      font-family: $font-f
+      background-color: #1a1a1a
+      border-radius: 8px
+      padding: 0.5rem
+      padding-right: .8rem
+
+      span:first-child
+        margin-right: .5rem
+        margin-left: .1rem
+
+    .ask:hover
+      background-color: #3a3a3a

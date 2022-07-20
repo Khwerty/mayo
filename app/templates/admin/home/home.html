@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='styles/home/home.css')}}">
+    <link rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <title>{{title}}</title>
+  </head>
+  <body>
+    <main>
+      <div class="main-head">
+        <div class="title">{{title}}</div>
+        <div class="but">{% if current_page == "home" %}
+          <div class="menuicon"><span class="material-symbols-outlined dropbutton" onclick="toggle()">menu</span>
+            <div class="drop" id="drop"><a href="{{url_for('.index')}}">Productos</a><span onclick="showMm(this)">Editar Mensaje</span><a href="{{url_for('.logout')}}">Cerrar sesion</a></div>
+          </div>{% else %}
+          {% if current_user.is_authenticated %}<span class="link" onclick="showAdder()">Añadir Producto</span><a class="link" href="{{url_for('.home')}}">Pedidos</a>{% else %}<a class="log" href="{{url_for('.login')}}"> <span class="material-symbols-rounded">logout</span></a>
+          <button class="ask" onclick="queryOrder('resume')"><span class="material-symbols-rounded">shopping_cart</span><span>Pedido</span></button>{% endif %}
+          {% endif %}
+          <div class="close"></div>
+        </div>
+      </div>
+      <div class="query_list">{% for query in querys %}
+        <div class="query" onclick="showDetail(this)" name="{{query.id}}"><span id="name">{{query.name}}</span><span>{{query.weight}}</span><span id="price">${{query.total}}</span></div>{% endfor %}
+      </div>
+    </main>{% for query in querys %}
+    <div class="query_open_item" id="{{query.id}}">
+      <div class="query_options block">
+        <button class="del icon" onclick="showAdv({{query.id}})"><span class="material-symbols-outlined">clear</span></button>
+        <button class="close icon" onclick="hideDetail({{query.id}})"><span class="material-symbols-outlined">undo</span></button>
+      </div>
+      <div class="created_at block">{{query.created_at}}</div>
+      <div class="firstdata block">
+        <div class="name">{{query.name}}</div>
+        <div class="number">{{query.contact}}</div>
+      </div>
+      <div class="secondata block">
+        <div class="address">{{query.address}}</div>
+        <div class="mail">{{query.mail}}</div>
+      </div>
+      <div class="comm">{{query.desc}}</div>
+      <div class="productslist">
+        {% for list in lists %}
+        {% if query.id == list.client_id %}
+        <div class="product">
+          <div class="typo">{{list.typo}}</div>
+          <div class="price">$ {{list.price}}</div>
+          <div class="bulks">{{list.bulks}} b</div>
+          <div class="trademark">{{list.trademark}}</div>
+          <div class="weight">{{list.weight}}</div>
+          <div class="units">{{list.units}} u</div>
+          <div class="detail">{{list.detail}}</div>
+          <div class="bulk">{{list.bulk}} u</div>
+          <div class="quantity">= {{list.quantity}} u        </div>
+        </div>{% endif %}
+        {% endfor %}
+        <div class="totals block">
+          <div class="tprice">$ {{query.total}}</div>
+          <div class="tweight">{{query.weight}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="areusure" id="adv_{{query.id}}">
+      <div>Estas Seguro ?</div>
+      <div class="adv-options">
+        <button class="nain" type="button" onclick="hideAdv( {{query.id}} )">No</button><a href="{{url_for('.delete_query',client_id = query.id )}}">
+          <button class="yes" type="button">Si</button></a>
+      </div>
+    </div>{% endfor %}
+    <div class="message" id="message_id">
+      <form method="POST">
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+        <div class="mmhead"><span class="mmtitle">Mensaje final</span>
+          <button class="mmclose icon" onclick="hideMm()" type="button"><span class="material-symbols-outlined">undo</span></button>
+        </div>{{form.message}}
+        {{form.disc}}
+        <button class="icon" type="submit">Guardar</button>
+      </form>
+    </div>
+  </body>
+  <script src="./../../static/js/home.js"> </script>
+</html>

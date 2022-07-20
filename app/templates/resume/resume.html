@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link rel="stylesheet" href="{{url_for('static',filename='styles/resume/style.css')}}">
+    <title>{{title}}</title>
+  </head>
+  <body>
+    <div class="query_open_item">
+      <div class="internal_message">
+        <div class="mm">Peticion Enviada!</div>
+        <div class="mm">{{mm.message}}</div>
+      </div>
+      <div class="query_options"><a class="del icon" href="{{url_for('.index')}}"><span class="material-symbols-outlined">clear</span></a></div>
+      <div class="created_at block">{{query.created_at}}</div>
+      <div class="firstdata block">
+        <div class="name">{{query.name}}</div>
+        <div class="number">{{query.contact}}</div>
+      </div>
+      <div class="secondata block">
+        <div class="address">{{query.address}}</div>
+        <div class="mail">{{query.mail}}</div>
+      </div>
+      <div class="comm">{{query.desc}}</div>
+      <div class="productslist">
+        {% for list in lists %}
+        {% if query.id == list.client_id %}
+        <div class="product">
+          <div class="typo">{{list.typo}}</div>
+          <div class="price">$ {{list.price}}</div>
+          <div class="bulks">{{list.bulks}} b</div>
+          <div class="trademark">{{list.trademark}}</div>
+          <div class="weight">{{list.weight}}</div>
+          <div class="units">{{list.units}} u</div>
+          <div class="detail">{{list.detail}}</div>
+          <div class="bulk">x{{list.bulk}} u</div>
+          <div class="quantity">= {{list.quantity}} u        </div>
+        </div>{% endif %}
+        {% endfor %}
+        <div class="totals block">
+          <div class="tprice">$ {{query.total}}</div>
+          <div class="tweight">{{query.weight}}</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

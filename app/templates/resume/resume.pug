@@ -1,0 +1,50 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200")
+    link(rel="stylesheet", href="{{url_for('static',filename='styles/resume/style.css')}}")
+    title|{{title}}
+
+  body
+    .query_open_item
+      .internal_message
+        .mm Peticion Enviada!
+        .mm|{{mm.message}}
+
+      .query_options
+        a.del.icon(href="{{url_for('.index')}}")
+          span(class="material-symbols-outlined") clear
+
+      .created_at.block|{{query.created_at}}
+
+      .firstdata.block
+        .name|{{query.name}}
+        .number|{{query.contact}}
+
+      .secondata.block
+        .address|{{query.address}}
+        .mail|{{query.mail}}
+
+      .comm|{{query.desc}}
+
+      .productslist
+        |{% for list in lists %}
+        |{% if query.id == list.client_id %}
+        .product
+          .typo|{{list.typo}}
+          .price|$ {{list.price}}
+          .bulks|{{list.bulks}} b
+          .trademark|{{list.trademark}}
+          .weight|{{list.weight}}
+          .units|{{list.units}} u
+          .detail|{{list.detail}}
+          .bulk|x{{list.bulk}} u
+          .quantity|= {{list.quantity}} u        
+        |{% endif %}
+        |{% endfor %}
+        .totals.block
+          .tprice|$ {{query.total}}
+          .tweight|{{query.weight}}

@@ -1,0 +1,27 @@
+.main-head
+  .title {{title}}
+  .but
+    |{% if current_page == "home" %}
+    .menuicon
+      span(class="material-symbols-outlined dropbutton" onclick="toggle()" ) menu
+      .drop(id="drop")
+        a(href="{{url_for('.index')}}") Productos
+        span(onclick="showMm(this)") Editar Mensaje
+        a(href="{{url_for('.logout')}}") Cerrar sesion
+
+    |{% else %}
+    |{% if current_user.is_authenticated %}
+
+    span.link(onclick="showAdder()") Añadir Producto
+    a.link(href="{{url_for('.home')}}") Pedidos
+
+    |{% else %}
+    a.log(href="{{url_for('.login')}}") 
+      span(class="material-symbols-rounded") logout
+
+    button.ask(onclick="queryOrder('resume')")
+      span(class="material-symbols-rounded") shopping_cart
+      span Pedido
+    |{% endif %}
+    |{% endif %}
+    .close

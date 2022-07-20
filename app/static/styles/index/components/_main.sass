@@ -1,0 +1,295 @@
+//THIS IS AN UNOFFICIAL VERSION
+main
+  width: 100%
+
+  .products
+    position: static
+    z-index: 0
+
+    display: flex
+    
+    align-items: center
+    flex-direction: column
+
+    .post
+      display: flex
+
+      height: 16rem
+      width: 100%
+      max-width: 65rem
+
+      padding: 1.5rem    
+
+      color: white
+      border-bottom: solid #343434 0.2rem
+      background-color: $color-back
+
+      .pic
+        display: flex
+
+        height: 100%
+        min-width: 16rem
+        
+        overflow: hidden
+
+        justify-content: center
+
+        img
+          height: 100%
+
+      .display
+        display: flex
+        width: 100%
+        
+        .info
+          font-family: $font-f
+          border-left: solid $color-detail 0.3rem
+          padding-left: 1.5rem
+          padding-right: 1.5rem
+          margin-left: 1.5rem
+          width: 100%
+          max-width: 18rem
+          height: 100%
+          font-size: 1.1rem
+
+          div
+            margin-top: .1rem
+            white-space: nowrap
+
+          .tag
+            margin-left: 1px
+            color: $color-ter
+
+          .marca
+            color: $color-pri
+            font-weight: bold
+            font-size: 1.4rem
+
+          .detalle
+            color: $color-sec
+
+          .peso
+            color: $color-ter
+            margin-bottom: 1rem 
+          
+          .price
+            color: $color-pri
+            font-weight: bold
+            font-size: 1.4rem
+
+          .unit_price,.bulk_price
+            display: none
+
+          .bulk
+            color: $color-sec
+          
+          .stock
+            color: $color-pri
+
+          .show
+            display: block
+
+        .quantity
+          display: flex
+          flex-direction: column
+          justify-content: space-evenly
+
+          .inputer
+            height: min-content
+            display: flex
+
+            font-size: 1.4rem
+
+            input::-webkit-inner-spin-button 
+              -webkit-appearance: none
+              margin: 0
+
+            input::-webkit-outer-spin-button
+              -webkit-appearance: none
+              margin: 0
+
+            input
+              font-size: inherit
+              border: none
+              outline: none
+              padding: 0 0.2rem
+              padding-top: 0.2rem
+              width: 5rem
+              text-align: center
+              color:$color-pri
+              background-color: $color-inputb
+
+              -moz-appearance: textfield
+              
+            button
+              display: flex
+              background-color: $color-detail
+              font-family: inherit
+              font-size: inherit
+              width: 1.6rem
+              border: none
+              padding-top: 0.1rem
+              align-items: center
+              justify-content: center
+
+              .material-symbols-outlined
+                font-variation-settings:'FILL' 0,'wght' 800,'GRAD' 0,'opsz' 45          
+                
+                color: $color-sec
+                padding: 0
+        .bulto
+          display: flex
+          font-family: $font-f
+          $s-height: 60px
+          $s-width: 26px
+
+          $s-pr: 18px
+          $s-offset: ($s-width - $s-pr) /2
+          $s-slidedis: $s-height -$s-pr -$s-offset*2
+          
+          .switch  
+            position: relative
+            display: flex
+            flex-direction: row
+            width: $s-width
+            height: $s-height
+
+            #d:checked ~ * .u
+              opacity: .3
+
+            #d:not(:checked) ~ * .u
+              opacity: 1
+
+            #d:not(:checked) ~ * .b
+              opacity: .3
+            
+            #d:checked ~ * .b
+              opacity: 1          
+
+            .text
+              display: flex
+              white-space: nowrap
+              margin-left: $s-width + 10px
+              flex-direction: column
+              justify-content: space-between
+              padding: 0.8rem 0
+
+              div
+                line-height: 0
+                margin-top: 1px
+
+
+          input
+            opacity: 0
+            width: 0
+            height: 0
+
+          input:checked + .slider:before
+            
+            -webkit-transform: translateY(- $s-slidedis)
+            -ms-transform: translateY(- $s-slidedis)
+            transform: translateY(- $s-slidedis)
+
+          .slider
+            position: absolute
+            cursor: pointer
+            top: 0
+            left: 0
+            right: 0
+            bottom: 0
+            background-color:$color-inputb 
+            -webkit-transition: .2s
+            transform: .2s
+
+          .slider:before 
+            position: absolute
+            content: ""
+            height: $s-pr
+            width: $s-pr
+            left: $s-offset
+            bottom: $s-offset
+            background-color: $color-sec
+            -webkit-transition: .2s
+            transition: .2s
+            
+          .slider
+            border-radius: 34px
+
+          .slider:before
+            border-radius: 50%
+
+        .options
+          display: flex
+          flex-direction: column
+          justify-content: space-between 
+          margin-left: auto
+
+          .icon
+            span
+              font-size: 1.7rem
+
+          .del
+            background-color: $color-softbutton
+
+          .edit
+            background-color: $color-four
+    .hidden
+      background: repeating-linear-gradient( 45deg,$color-back,$color-back 4rem,#ffffff00 4rem,#ffffff00 8rem )
+
+.areusure
+  display: none
+  flex-direction: column
+  position: fixed
+  z-index: 2
+  align-items: center
+  font-family: $font-f
+  font-size: 1.3rem
+  
+  padding: 1rem
+  border-radius: 1rem
+  background-color: $color-detail
+  border: 0.2rem solid $color-ter
+  color: white
+  width: 70%
+
+  top: 50%
+  left: 50%
+
+  transform: translate( -50%, -50% )
+
+  button
+    padding: .2rem 1rem
+    border-radius: 0.3rem
+    color: white
+
+  .options
+    display: flex
+    justify-content: space-evenly
+    width: 100%
+    margin-top: 1rem
+    font-size: 1.3rem
+
+    .nain
+      font-size: 1.2rem
+      background-color: $color-four
+
+    .yes
+      font-size: 1.2rem
+      background-color: $color-button
+
+@media (max-width: 670px)
+  main
+    .products
+      .post
+        flex-direction: column
+        padding: 2rem 1rem
+        height: 28rem
+        .pic
+          width: 100%
+          margin-bottom: 1rem 
+        .display
+          justify-content: space-between
+          .info
+            border: none
+            margin: 0
+            padding: 0
