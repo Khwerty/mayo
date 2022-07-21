@@ -3,3 +3,7 @@
 **/.vscode
 **/venv
 **prepros.config
+**/*.sass
+**/*.pug
+dev_gitignore
+.gitignore
