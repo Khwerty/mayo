@@ -562,6 +562,7 @@ main {
   padding: 1.5rem;
   margin: 1.5rem;
   width: calc(100% - 3rem);
+  height: calc(100% - 3rem);
   background-color: #2e2e2e;
   font-family: Helvetica;
   font-size: 1.3rem;
@@ -577,10 +578,24 @@ main {
   width: 100%;
 }
 .resume form .title {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 .resume form .data {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding-right: 2rem;
+}
+.resume form .data .required:after {
+  content: " *";
+  color: red;
+}
+.resume form .data .dataslot {
+  font-size: 1.1rem;
 }
 .resume form .data .dataslot input {
   background-color: #202020;
@@ -591,12 +606,21 @@ main {
   margin-top: 0.2rem;
   margin-bottom: 0.6rem;
 }
+.resume form .data .desc_container {
+  font-size: 1.1rem;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  margin-top: 1rem;
+}
 .resume form .data .desc_container textarea {
   background-color: #202020;
   border-radius: 0.6rem;
   border: none;
   width: 100%;
-  height: auto;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
   resize: none;
   color: white;
   padding: 0.2rem 0.5rem;
@@ -658,8 +682,8 @@ main {
   border-top: solid 2px #414141;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1fr 2fr 1fr 1fr 1fr 0fr 0fr 1fr;
-  grid-template-columns: 1fr 1fr 2fr 1fr 1fr 1fr 0fr 0fr 1fr;
+  -ms-grid-columns: 1fr 1.2fr 1.5fr 1fr 1.2fr 1fr 0fr 0fr 3rem;
+  grid-template-columns: 1fr 1.2fr 1.5fr 1fr 1.2fr 1fr 0fr 0fr 3rem;
   max-height: -webkit-min-content;
   max-height: -moz-min-content;
   max-height: min-content;
@@ -701,6 +725,9 @@ main {
 .resume form .list .tcont .container .weightdiv, .resume form .list .tcont .container .pricediv, .resume form .list .tcont .container .totaldiv {
   text-align: center;
 }
+.resume form .list .tcont .container .pricediv {
+  white-space: nowrap;
+}
 .resume form .list .tcont .suma {
   border-top: 0.2rem #414141 solid;
   margin-top: auto;
@@ -725,6 +752,7 @@ main {
 @media (max-width: 670px) {
   .resume {
     width: 100%;
+    height: 100vh;
     margin: 0;
     padding: 0.3rem 0;
     border-radius: 0;
@@ -736,6 +764,10 @@ main {
             flex-direction: column;
     -ms-flex-flow: column-reverse;
         flex-flow: column-reverse;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
+    height: 100%;
   }
   .resume form .list {
     margin-bottom: 2rem;
@@ -819,6 +851,9 @@ main {
   }
   .resume form .list .tcont .suma.suma .ttdiv {
     text-align: right;
+  }
+  .resume form .list .info_discount {
+    padding: 1rem 0.5rem;
   }
   .resume form .data {
     display: -webkit-box;

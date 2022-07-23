@@ -18,7 +18,7 @@ def load_user( id ):
 
 page = Blueprint('page',__name__)
 
-@page.route('/mayorista',methods=['GET','POST'])
+@page.route('/',methods=['GET','POST'])
 def index():
   flash("Debes Seleccionar Almenos 1 Producto")
   message = Messages.query.get_or_404( 1 )

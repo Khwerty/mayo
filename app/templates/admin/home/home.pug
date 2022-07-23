@@ -10,14 +10,20 @@ html(lang="es")
   body
     main
       include ./../../header.pug
+
       .query_list
+        |{% if querys %}
         |{% for query in querys %}
         .query(onclick="showDetail(this)" name="{{query.id}}")
           span(id="name")|{{query.name}}
           span|{{query.weight}}
           span(id="price")|${{query.total}}
         |{% endfor %}
-
+        |{% else %}
+        .noquery
+          span No hay pedidos pendientes
+        |{% endif %}
+        
     |{% for query in querys %}
     .query_open_item(id="{{query.id}}")
       .query_options.block
@@ -49,8 +55,8 @@ html(lang="es")
           .weight|{{list.weight}}
           .units|{{list.units}} u
           .detail|{{list.detail}}
-          .bulk|{{list.bulk}} u
-          .quantity|= {{list.quantity}} u        
+          .bulk|b {{list.bulk}}
+          .quantity|x {{list.quantity}} u        
         |{% endif %}
         |{% endfor %}
         .totals.block
@@ -70,11 +76,11 @@ html(lang="es")
       form(method="POST")
         input(type="hidden" name="csrf_token" value="{{csrf_token()}}") 
         .mmhead
-          span.mmtitle Mensaje final
           button.mmclose.icon(onclick="hideMm()" type="button")
             span(class="material-symbols-outlined") undo
-
+        span.subtitle Despedida
         |{{form.message}}
+        span.subtitle Info
         |{{form.disc}}
         button.icon(type="submit") Guardar
               

@@ -22,8 +22,12 @@
           <div class="close"></div>
         </div>
       </div>
-      <div class="query_list">{% for query in querys %}
+      <div class="query_list">
+        {% if querys %}
+        {% for query in querys %}
         <div class="query" onclick="showDetail(this)" name="{{query.id}}"><span id="name">{{query.name}}</span><span>{{query.weight}}</span><span id="price">${{query.total}}</span></div>{% endfor %}
+        {% else %}
+        <div class="noquery"><span>No hay pedidos pendientes</span></div>{% endif %}
       </div>
     </main>{% for query in querys %}
     <div class="query_open_item" id="{{query.id}}">
@@ -52,8 +56,8 @@
           <div class="weight">{{list.weight}}</div>
           <div class="units">{{list.units}} u</div>
           <div class="detail">{{list.detail}}</div>
-          <div class="bulk">{{list.bulk}} u</div>
-          <div class="quantity">= {{list.quantity}} u        </div>
+          <div class="bulk">b {{list.bulk}}</div>
+          <div class="quantity">x {{list.quantity}} u        </div>
         </div>{% endif %}
         {% endfor %}
         <div class="totals block">
@@ -72,10 +76,9 @@
     <div class="message" id="message_id">
       <form method="POST">
         <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
-        <div class="mmhead"><span class="mmtitle">Mensaje final</span>
+        <div class="mmhead">
           <button class="mmclose icon" onclick="hideMm()" type="button"><span class="material-symbols-outlined">undo</span></button>
-        </div>{{form.message}}
-        {{form.disc}}
+        </div><span class="subtitle">Despedida</span>{{form.message}}<span class="subtitle">Info</span>{{form.disc}}
         <button class="icon" type="submit">Guardar</button>
       </form>
     </div>
