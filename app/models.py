@@ -1,8 +1,11 @@
 #THIS IS AN UNOFFICIAL VERSION
 
 import datetime
+import os
+from . import app
 from werkzeug.utils import secure_filename
 from flask_login import UserMixin
+
 
 from . import db
 
@@ -54,7 +57,15 @@ class Product(db.Model):
   @classmethod
   def delete_product(cls, id ):
     product = Product.get_by_id( id )
-    
+
+    filepath = os.path.join(app.instance_path,'static/images', product.image)
+
+    if os.path.exists( filepath ):
+      os.remove( filepath )
+    else:
+      print("No se encontro el directorio '"+filepath+"'")
+      print("Durante la eliminacion del producto '"+product.typo+" "+product.trademark+"'")
+
     db.session.delete(product)
     db.session.commit()
 
