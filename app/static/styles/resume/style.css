@@ -97,6 +97,7 @@ main {
           justify-content: space-between;
   color: #fff;
   font-family: Helvetica;
+  border-bottom: solid 2px #202020;
 }
 .main-head .title {
   font-size: 1.1rem;

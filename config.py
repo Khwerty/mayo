@@ -9,6 +9,7 @@ class DevelopmentConfig(Config):
   DEBUG = True
   SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:'+str(d)+'@localhost/mayo'
   SQLALCHEMY_TRACK_MODIFICATIONS = False
+  SQLALCHEMY_ENGINE_OPTIONS = {'pool_pre_ping':True}
 
 config = {
   'development': DevelopmentConfig,

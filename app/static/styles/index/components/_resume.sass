@@ -59,6 +59,7 @@ main
         margin-top: 1rem
 
         textarea
+          font-size: 1rem
           background-color: $color-back
           border-radius: .6rem
           border: none
@@ -66,7 +67,7 @@ main
           height: max-content
           resize: none
           color: white
-          padding: .2rem .5rem
+          padding: .5rem .5rem
           margin-top: .2rem
           font-family: $font-f
           outline: none
@@ -156,6 +157,60 @@ main
         span
           font-size: 1rem
           opacity: .5
+@media (max-width: 1040px)
+  .resume
+    form
+      .list      
+        .tcont
+          .container
+            .item.item
+              position: relative
+              grid-template: 1fr 1fr 1fr / 2fr 1fr 1.2fr
+              grid-row-gap: .5rem
+              padding: 1rem 0
+
+              span
+                font-size: 1rem
+
+              .typo
+                order: 0
+              .weightdiv
+                order: 4
+              .del
+                order: 2
+                justify-self: end
+
+                span
+                  position: absolute
+                  right: -5px
+                  top: 12px
+                  
+                  font-size: 1.5rem
+
+              .trademark
+                order: 3
+              .pricediv
+                order: 5
+              .totaldiv
+                order: 8
+              .detail
+                white-space: nowrap
+                order: 6
+              .fil0
+                order: 7
+              .fil1
+                order: 1
+
+              .close,.totaldiv,.pricediv
+                text-align: right
+          
+          .suma.suma
+            grid-template-columns: 2fr 1fr 1.2fr
+            font-size: 1rem
+            .ttdiv
+              text-align: right
+        .info_discount
+          padding: 1rem .5rem
 
 @media (max-width: 670px)
   .resume
@@ -231,6 +286,7 @@ main
               text-align: right
         .info_discount
           padding: 1rem .5rem
+
       .data
         display: flex
         flex-direction: column

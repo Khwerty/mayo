@@ -97,6 +97,7 @@ main {
           justify-content: space-between;
   color: #fff;
   font-family: Helvetica;
+  border-bottom: solid 2px #202020;
 }
 .main-head .title {
   font-size: 1.1rem;
@@ -614,6 +615,7 @@ main {
   margin-top: 1rem;
 }
 .resume form .data .desc_container textarea {
+  font-size: 1rem;
   background-color: #202020;
   border-radius: 0.6rem;
   border: none;
@@ -623,7 +625,7 @@ main {
   height: max-content;
   resize: none;
   color: white;
-  padding: 0.2rem 0.5rem;
+  padding: 0.5rem 0.5rem;
   margin-top: 0.2rem;
   font-family: Helvetica;
   outline: none;
@@ -749,6 +751,87 @@ main {
   opacity: 0.5;
 }
 
+@media (max-width: 1040px) {
+  .resume form .list .tcont .container .item.item {
+    position: relative;
+    -ms-grid-rows: 1fr 0.5rem 1fr 0.5rem 1fr;
+    -ms-grid-columns: 2fr 1fr 1.2fr;
+        grid-template: 1fr 1fr 1fr/2fr 1fr 1.2fr;
+    grid-row-gap: 0.5rem;
+    padding: 1rem 0;
+  }
+  .resume form .list .tcont .container .item.item span {
+    font-size: 1rem;
+  }
+  .resume form .list .tcont .container .item.item .typo {
+    -webkit-box-ordinal-group: 1;
+        -ms-flex-order: 0;
+            order: 0;
+  }
+  .resume form .list .tcont .container .item.item .weightdiv {
+    -webkit-box-ordinal-group: 5;
+        -ms-flex-order: 4;
+            order: 4;
+  }
+  .resume form .list .tcont .container .item.item .del {
+    -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
+    -ms-grid-column-align: end;
+        justify-self: end;
+  }
+  .resume form .list .tcont .container .item.item .del span {
+    position: absolute;
+    right: -5px;
+    top: 12px;
+    font-size: 1.5rem;
+  }
+  .resume form .list .tcont .container .item.item .trademark {
+    -webkit-box-ordinal-group: 4;
+        -ms-flex-order: 3;
+            order: 3;
+  }
+  .resume form .list .tcont .container .item.item .pricediv {
+    -webkit-box-ordinal-group: 6;
+        -ms-flex-order: 5;
+            order: 5;
+  }
+  .resume form .list .tcont .container .item.item .totaldiv {
+    -webkit-box-ordinal-group: 9;
+        -ms-flex-order: 8;
+            order: 8;
+  }
+  .resume form .list .tcont .container .item.item .detail {
+    white-space: nowrap;
+    -webkit-box-ordinal-group: 7;
+        -ms-flex-order: 6;
+            order: 6;
+  }
+  .resume form .list .tcont .container .item.item .fil0 {
+    -webkit-box-ordinal-group: 8;
+        -ms-flex-order: 7;
+            order: 7;
+  }
+  .resume form .list .tcont .container .item.item .fil1 {
+    -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
+  }
+  .resume form .list .tcont .container .item.item .close, .resume form .list .tcont .container .item.item .totaldiv, .resume form .list .tcont .container .item.item .pricediv {
+    text-align: right;
+  }
+  .resume form .list .tcont .suma.suma {
+    -ms-grid-columns: 2fr 1fr 1.2fr;
+    grid-template-columns: 2fr 1fr 1.2fr;
+    font-size: 1rem;
+  }
+  .resume form .list .tcont .suma.suma .ttdiv {
+    text-align: right;
+  }
+  .resume form .list .info_discount {
+    padding: 1rem 0.5rem;
+  }
+}
 @media (max-width: 670px) {
   .resume {
     width: 100%;
