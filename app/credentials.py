@@ -1,2 +1,0 @@
-CREDENTIAL_PASS = "admin"
-CREDENTIAL_USER = "zoge"
